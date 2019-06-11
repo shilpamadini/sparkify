@@ -27,65 +27,67 @@ corresponding etl pipeline to load the database.
 
 ## Installation
 
-1.  PostgresSQl
+### Setup PostgresSQl
 
 You need to have a PostgreSQL database installed on your machine in
 order to successfully run the programs. [Here](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb) is a document that I used to install postgresSQL on my Mac.
 Once PostgreSQL is installed run below  commands.
-    * Start the postgresSQL
+1. Start the postgresSQL
         ```pg_ctl -D /usr/local/var/postgres start && brew services start postgresql
-         ```
-    * connect to posgres using psql
+
+        ```
+2. connect to posgres using psql
 
         ```psql postgres
         ```
-    * Create a new role called "student" at the psql prompt
+3. Create a new role called "student" at the psql prompt
         ```CREATE ROLE student WITH LOGIN PASSWORD 'student';
         ```
-    * Verify the creation of database role at the psql prompt
+4. Verify the creation of database role at the psql prompt
         ```\du
         ```
-    * Alter the role to give permissions to create db
+5. Alter the role to give permissions to create db
         ```ALTER ROLE student CREATEDB;
         ```
-     * Create a new database called studentdb and sparkifydb
+6. Create a new database called studentdb and sparkifydb
         ```CREATE DATABASE studentdb;
         ```
         ```CREATE DATABASE sparkifydb;
         ```
-    * Grant privileges to student on both the databases
+7. Grant privileges to student on both the databases
         ```GRANT ALL PRIVILEGES ON DATABASE studentdb TO student;
         ```
         ```GRANT ALL PRIVILEGES ON DATABASE sparkifydb TO student;
         ```
-    * use the following command to connect to the database from psql
+8. use the following command to connect to the database from psql
         ```psql -d student -U sparkifydb
         ```
-    * Use the following command to see the active sessions on postgres
+9. Use the following command to see the active sessions on postgres
         ```select pid, usename,  datname,  client_addr, application_name, backend_start, state, state_change from pg_stat_activity;
         ```
-    * Use the following command to clear any session from the backend. replace
+10. Use the following command to clear any session from the backend. replace
     pid with the actual pid obtained in the above sql results.
         ```select pg_terminate_backend(pid);
         ```
-2.  Setup  Sparkify project
-    * Use the following command to clone the project repository.
+### Setup  Sparkify project
+
+1. Use the following command to clone the project repository.
         ```git clone https://github.com/shilpamadini/sparkify.git
         ```
-    * Create the environment using below command
+2. Create the environment using below command
         ```conda env create -f environment.yaml
         ```
-    * Activate the conda environment
+3. Activate the conda environment
         ```source activate dand_py3
         ```
-    * Run the following commands in order to load sparkifydb
+4. Run the following commands in order to load sparkifydb
         ```python sql_queries.py
         ```
         ```python create_tables.py
         ```
         ```python etl.py
         ```
-     * Test the etl load at any time by using test.ipynb. Run the following
+5. Test the etl load at any time by using test.ipynb. Run the following
        command to launch jupyter notebook.
         ```jupyter notebook
         ```
@@ -101,7 +103,7 @@ The song dataset is a subset of real data from the [Million Song](http://million
 
 To analyze the song play data in its raw form requires to look at data in multiple files and mapping song data between logs files and the song data files. To make the analysis more efficient we should have the files loaded into database tables that are designed to answer the questions asked by analytics team. Since the analytics team is interested in knowing what songs the users are listening to and probably interested in performing ranking ,aggregation to determine which song is played the most, what is most popular song, which artist released most popular songs. Analytics may also be interested in looking at the trends over a period of time.
 
-In order to support the required analytics a star schema based tables are created. Songplay table as the fact table and song, user,artist and time as its dimension tables. Database integrity is maintained by using Primary key and foreign key constraints in the table definitions.
+In order to support the required analytics a star schema design is implemented to design the data warehouse. Songplay table is the fact table and song, user,artist and time are dimension tables. Database integrity is maintained by using Primary key and foreign key constraints in the table definitions.
 
 Here is the ER diagram explaining the schema design.
 
