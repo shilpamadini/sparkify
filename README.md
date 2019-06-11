@@ -33,98 +33,61 @@ You need to have a PostgreSQL database installed on your machine in
 order to successfully run the programs. [Here](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb) is a document that I used to install postgresSQL on my Mac.
 Once PostgreSQL is installed run below  commands.
     * Start the postgresSQL
-        ```
-        pg_ctl -D /usr/local/var/postgres start && brew services start postgresql
-
-        ```
+        ```pg_ctl -D /usr/local/var/postgres start && brew services start postgresql
+         ```
     * connect to posgres using psql
-        ```
-        psql postgres
 
+        ```psql postgres
         ```
     * Create a new role called "student" at the psql prompt
-        ```
-        CREATE ROLE student WITH LOGIN PASSWORD 'student';
-
+        ```CREATE ROLE student WITH LOGIN PASSWORD 'student';
         ```
     * Verify the creation of database role at the psql prompt
-        ```
-        \du
-
+        ```\du
         ```
     * Alter the role to give permissions to create db
-        ```
-        ALTER ROLE student CREATEDB;
-
+        ```ALTER ROLE student CREATEDB;
         ```
      * Create a new database called studentdb and sparkifydb
+        ```CREATE DATABASE studentdb;
         ```
-        CREATE DATABASE studentdb;
-
-        ```
-        ```
-        CREATE DATABASE sparkifydb;
-
+        ```CREATE DATABASE sparkifydb;
         ```
     * Grant privileges to student on both the databases
+        ```GRANT ALL PRIVILEGES ON DATABASE studentdb TO student;
         ```
-        GRANT ALL PRIVILEGES ON DATABASE studentdb TO student;
-
-        ```
-        ```
-        GRANT ALL PRIVILEGES ON DATABASE sparkifydb TO student;
-
+        ```GRANT ALL PRIVILEGES ON DATABASE sparkifydb TO student;
         ```
     * use the following command to connect to the database from psql
-        ```
-        psql -d student -U sparkifydb
-
+        ```psql -d student -U sparkifydb
         ```
     * Use the following command to see the active sessions on postgres
-        ```
-        select pid,usename,datname,client_addr,application_name,backend_start,state,state_change from pg_stat_activity;
-
+        ```select pid, usename,  datname,  client_addr, application_name, backend_start, state, state_change from pg_stat_activity;
         ```
     * Use the following command to clear any session from the backend. replace
     pid with the actual pid obtained in the above sql results.
-        ```
-        select pg_terminate_backend(pid);
-
+        ```select pg_terminate_backend(pid);
         ```
 2.  Setup  Sparkify project
     * Use the following command to clone the project repository.
-        ```
-        git clone https://github.com/shilpamadini/sparkify.git
-
+        ```git clone https://github.com/shilpamadini/sparkify.git
         ```
     * Create the environment using below command
-        ```
-        conda env create -f environment.yaml
-
+        ```conda env create -f environment.yaml
         ```
     * Activate the conda environment
-        ```
-        source activate dand_py3
-
+        ```source activate dand_py3
         ```
     * Run the following commands in order to load sparkifydb
+        ```python sql_queries.py
         ```
-        python sql_queries.py
-
+        ```python create_tables.py
         ```
-        ```
-        python create_tables.py
-
-        ```
-        ```
-        python etl.py
-
+        ```python etl.py
         ```
      * Test the etl load at any time by using test.ipynb. Run the following
        command to launch jupyter notebook.
-        ```
-        jupyter notebook
-
+        ```jupyter notebook
         ```
 
 ## Functionality
