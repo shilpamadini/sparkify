@@ -27,7 +27,7 @@ corresponding etl pipeline to load the database.
 
 ## Installation
 
-### Setup PostgresSQl
+### Setup PostgresSQL
 
 You need to have a PostgreSQL database installed on your machine in
 order to successfully run the programs. [Here](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb) is a document that I used to install postgresSQL on my Mac.
