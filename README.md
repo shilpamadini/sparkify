@@ -34,92 +34,100 @@ order to successfully run the programs. [Here](https://www.codementor.io/enginee
 Once PostgreSQL is installed run below  commands.
 1. Start the postgresSQL
 
-        ```pg_ctl -D /usr/local/var/postgres start && brew services start postgresql
+    ```
+    pg_ctl -D /usr/local/var/postgres start && brew services start postgresql
+    ```
 
-        ```
 2. connect to posgres using psql
+    ```
+    psql postgres
+    ```
 
-        ```psql postgres
-        ```
 3. Create a new role called "student" at the psql prompt
-
-        ```CREATE ROLE student WITH LOGIN PASSWORD 'student';
-        ```
+    ```
+    CREATE ROLE student WITH LOGIN PASSWORD 'student';
+    ```
 
 4. Verify the creation of database role at the psql prompt
-
-        ```\du
-        ```
+    ```
+    \du
+    ```
 
 5. Alter the role to give permissions to create db
-
-        ```ALTER ROLE student CREATEDB;
-        ```
+    ```
+    ALTER ROLE student CREATEDB;
+    ```
 
 6. Create a new database called studentdb and sparkifydb
-
-        ```CREATE DATABASE studentdb;
-        ```
-
-        ```CREATE DATABASE sparkifydb;
-        ```
+    ```
+    CREATE DATABASE studentdb;
+    ```
+    ```
+    CREATE DATABASE sparkifydb;
+    ```
 
 7. Grant privileges to student on both the databases
-
-        ```GRANT ALL PRIVILEGES ON DATABASE studentdb TO student;
-        ```
-
-        ```GRANT ALL PRIVILEGES ON DATABASE sparkifydb TO student;
-        ```
+    ```
+    GRANT ALL PRIVILEGES ON DATABASE studentdb TO student;
+    ```
+    ```
+    GRANT ALL PRIVILEGES ON DATABASE sparkifydb TO student;
+    ```
 
 8. use the following command to connect to the database from psql
-
-        ```psql -d student -U sparkifydb
-        ```
+    ```
+    psql -d student -U sparkifydb
+    ```
 
 9. Use the following command to see the active sessions on postgres
 
-        ```select pid, usename,  datname,  client_addr, application_name, backend_start, state, state_change from pg_stat_activity;
-        ```
+    ```
+    select pid, usename,  datname,  client_addr, application_name, backend_start, state, state_change from pg_stat_activity;
+    ```
 
-10. Use the following command to clear any session from the backend. replace
-    pid with the actual pid obtained in the above sql results.
+10. Use the following command to clear any session from the backend. replace pid with the actual pid obtained in the above sql results.
 
-        ```select pg_terminate_backend(pid);
-        ```
+    ```
+    select pg_terminate_backend(pid);
+    ```
 
 ### Setup  Sparkify project
 
 1. Use the following command to clone the project repository.
 
-        ```git clone https://github.com/shilpamadini/sparkify.git
-        ```
+    ```
+    git clone https://github.com/shilpamadini/sparkify.git
+    ```
 
 2. Create the environment using below command
 
-        ```conda env create -f environment.yaml
-        ```
+    ```
+    conda env create -f environment.yaml
+    ```
 
 3. Activate the conda environment
 
-        ```source activate dand_py3
-        ```
+    ```
+    source activate dand_py3
+    ```
 
 4. Run the following commands in order to load sparkifydb
+    ```
+    python sql_queries.py
+    ```
+    ```
+    python create_tables.py
+    ```
+    ```
+    python etl.py
+    ```
 
-        ```python sql_queries.py
-        ```
-
-        ```python create_tables.py
-        ```
-
-        ```python etl.py
-        ```
 
 5. Test the etl load at any time by using test.ipynb. Run the following command to launch jupyter notebook.
+    ```
+    jupyter notebook
+    ```
 
-        ```jupyter notebook
-        ```
 
 ## Functionality
 
