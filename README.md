@@ -76,7 +76,7 @@ Once PostgreSQL is installed run below  commands.
 
 8. use the following command to connect to the database from psql
     ```
-    psql -d student -U sparkifydb
+    psql -d sparkifydb -U student
     ```
 
 9. Use the following command to see the active sessions on postgres
